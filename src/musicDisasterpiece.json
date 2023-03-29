@@ -1,0 +1,7 @@
+{
+  "Artist": {"S": "Slipknot"},
+  "SongTitle": {"S": "Disaterpiece"},
+  "AlbumTitle": {"S": "Iowa"},
+  "SongYear": {"S": "2001"},
+  "DurationInSeconds": {"N": "308"}
+}

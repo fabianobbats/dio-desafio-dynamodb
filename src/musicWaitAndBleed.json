@@ -1,0 +1,7 @@
+{
+  "Artist": {"S": "Slipknot"},
+  "SongTitle": {"S": "Wait and Bleed"},
+  "AlbumTitle": {"S": "Slipknot"},
+  "SongYear": {"S": "1999"},
+  "DurationInSeconds": {"N": "148"}
+}
