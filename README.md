@@ -109,14 +109,14 @@ aws dynamodb query \
     --expression-attribute-values  '{":name":{"S":"Toxicity"}}'
 ```
 
-- Pesquisa pelo index secundário baseado no nome do artista e no título do álbum - "Stone Sour - Through Glass"
+- Pesquisa pelo index secundário baseado no nome do artista e no título do álbum - "Stone Sour - Come What(ever) May"
 
 ```
 aws dynamodb query \
     --table-name Music \
     --index-name ArtistAlbumTitle-index \
     --key-condition-expression "Artist = :v_artist and AlbumTitle = :v_title" \
-    --expression-attribute-values  '{":v_artist":{"S":"Stone Sour"},":v_title":{"S":"Fear of the Dark"} }'
+    --expression-attribute-values  '{":v_artist":{"S":"Stone Sour"},":v_title":{"S":"Come What(ever) May"} }'
 ```
 
 - Pesquisa pelo index secundário baseado no título da música e no ano "B.Y.O.B. - 2005"
