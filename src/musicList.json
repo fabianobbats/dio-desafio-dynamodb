@@ -1,0 +1,59 @@
+{
+    "Music": [
+        {
+            "PutRequest": {
+                "Item": {
+                  "Artist": {"S": "Stone Sour"},
+                  "SongTitle": {"S": "Through Glass"},
+                  "AlbumTitle": {"S": "Come What(ever) May"},
+                  "SongYear": {"S": "2006"},
+                  "DurationInSeconds": {"N": "283"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                  "Artist": {"S": "System of a Down"},
+                  "SongTitle": {"S": "Toxicity"},
+                  "AlbumTitle": {"S": "Toxicity"},
+                  "SongYear": {"S": "2001"},
+                  "DurationInSeconds": {"N": "219"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                  "Artist": {"S": "System of a Down"},
+                  "SongTitle": {"S": "Chop Suey!"},
+                  "AlbumTitle": {"S": "Toxicity"},
+                  "SongYear": {"S": "2001"},
+                  "DurationInSeconds": {"N": "210"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                  "Artist": {"S": "System of a Down"},
+                  "SongTitle": {"S": "Spiders"},
+                  "AlbumTitle": {"S": "System of a Down"},
+                  "SongYear": {"S": "1998"},
+                  "DurationInSeconds": {"N": "216"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                  "Artist": {"S": "System of a Down"},
+                  "SongTitle": {"S": "B.Y.O.B."},
+                  "AlbumTitle": {"S": "Mesmerize"},
+                  "SongYear": {"S": "2005"},
+                  "DurationInSeconds": {"N": "255"}
+                }
+            }
+        }
+      ]
+}
