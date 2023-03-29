@@ -8,7 +8,7 @@ Repositório para o live coding do dia 30/09/2021 sobre o Amazon DynamoDB
 ### Comandos para execução do experimento:
 
 
-- Criar uma tabela
+- Criar tabela Music
 
 ```
 aws dynamodb create-table \
@@ -23,22 +23,29 @@ aws dynamodb create-table \
         ReadCapacityUnits=10,WriteCapacityUnits=5
 ```
 
-- Inserir um item
+- Inserir a música Disasterpiece
 
 ```
 aws dynamodb put-item \
     --table-name Music \
-    --item file://itemmusic.json \
+    --item file://musicDisasterpiece.json
+```
+- Inserir a música Wait And Bleed
+
+```
+aws dynamodb put-item \
+    --table-name Music \
+    --item file://musicWaitAndBleed.json
 ```
 
-- Inserir múltiplos itens
+- Inserir uma lista de música em um comando só
 
 ```
 aws dynamodb batch-write-item \
-    --request-items file://batchmusic.json
+    --request-items file://musicList.json
 ```
 
-- Criar um index global secundário baeado no título do álbum
+- Criar um index global secundário baseado no título do álbum
 
 ```
 aws dynamodb update-table \
@@ -75,15 +82,15 @@ aws dynamodb update-table \
         \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
 ```
 
-- Pesquisar item por artista
+- Pesquisar item por artista System of a Down
 
 ```
 aws dynamodb query \
     --table-name Music \
     --key-condition-expression "Artist = :artist" \
-    --expression-attribute-values  '{":artist":{"S":"Iron Maiden"}}'
+    --expression-attribute-values  '{":artist":{"S":"System of a Down"}}'
 ```
-- Pesquisar item por artista e título da música
+- Pesquisar item por artista e título da música usando um arquivo com valores dos atributos
 
 ```
 aws dynamodb query \
@@ -92,32 +99,49 @@ aws dynamodb query \
     --expression-attribute-values file://keyconditions.json
 ```
 
-- Pesquisa pelo index secundário baseado no título do álbum
+- Pesquisa pelo index secundário baseado no título do álbum - "Toxicity"
 
 ```
 aws dynamodb query \
     --table-name Music \
     --index-name AlbumTitle-index \
     --key-condition-expression "AlbumTitle = :name" \
-    --expression-attribute-values  '{":name":{"S":"Fear of the Dark"}}'
+    --expression-attribute-values  '{":name":{"S":"Toxicity"}}'
 ```
 
-- Pesquisa pelo index secundário baseado no nome do artista e no título do álbum
+- Pesquisa pelo index secundário baseado no nome do artista e no título do álbum - "Stone Sour - Through Glass"
 
 ```
 aws dynamodb query \
     --table-name Music \
     --index-name ArtistAlbumTitle-index \
     --key-condition-expression "Artist = :v_artist and AlbumTitle = :v_title" \
-    --expression-attribute-values  '{":v_artist":{"S":"Iron Maiden"},":v_title":{"S":"Fear of the Dark"} }'
+    --expression-attribute-values  '{":v_artist":{"S":"Stone Sour"},":v_title":{"S":"Fear of the Dark"} }'
 ```
 
-- Pesquisa pelo index secundário baseado no título da música e no ano
+- Pesquisa pelo index secundário baseado no título da música e no ano "B.Y.O.B. - 2005"
 
 ```
 aws dynamodb query \
     --table-name Music \
     --index-name SongTitleYear-index \
     --key-condition-expression "SongTitle = :v_song and SongYear = :v_year" \
-    --expression-attribute-values  '{":v_song":{"S":"Wasting Love"},":v_year":{"S":"1992"} }'
+    --expression-attribute-values  '{":v_song":{"S":"B.Y.O.B."},":v_year":{"S":"2005"} }'
+```
+- Criar um index global secundário baseado no ano do álbum
+
+```
+aws dynamodb update-table \
+    --table-name Music \
+    --attribute-definitions AttributeName=SongYear,AttributeType=S \
+    --global-secondary-index-updates \
+        "[{\"Create\":{\"IndexName\": \"SongYear-index\",\"KeySchema\":[{\"AttributeName\":\"SongYear\",\"KeyType\":\"HASH\"}], \
+        \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 5      },\"Projection\":{\"ProjectionType\":\"ALL\"}}}]"
+```
+
+- Pesquisa as músicas, usando o partiql,  dos albuns lançado após ou igual ao ano 2001 
+
+```
+aws dynamodb execute-statement --statement "SELECT * FROM Music   \
+                                            WHERE SongYear >= '2001'"
 ```
